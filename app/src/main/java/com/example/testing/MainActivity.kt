@@ -110,7 +110,7 @@ fun GreetingPreview() {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Greeting("Android")
+            Greeting("APP")
             AppButton("Púlsame", onClickAction = {})
         }
     }
