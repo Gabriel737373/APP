@@ -1,6 +1,10 @@
 package com.example.testing
 
 import android.os.Bundle
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import android.service.autofill.OnClickAction
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -45,36 +49,16 @@ class MainActivity : ComponentActivity() {
             val scope = rememberCoroutineScope()
 
             TestingTheme {
-                Scaffold(
-                    snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
-                ) { innerPadding ->
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(innerPadding),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Greeting(name = "APP")
-
-                        AppButton(
-                            buttonText = "Púlsame",
-                            onClickAction = {
-                                scope.launch {
-                                    snackbarHostState.showSnackbar("Gracias por pulsar el botón")
-                                }
-                            }
-                        )
-                }
-            }
+                MyAppNavigation()
         }
+
     }
 }
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        color = MaterialTheme.colorScheme.onBackground,
+        color = textoGeneral,
         text = "Bienvenido a $name",
         modifier = modifier.padding(16.dp)
 
@@ -101,19 +85,95 @@ fun AppButton(buttonText: String, modifier: Modifier = Modifier, onClickAction: 
         )
     }
 }
+    @Preview(showBackground = true)
+    @Composable
+    fun HomeScreenPreview() {
+        TestingTheme {
 
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TestingTheme {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Greeting("APP")
-            AppButton("Púlsame", onClickAction = {})
+            HomeScreen(navController = rememberNavController())
         }
+    }
+
+    @Preview(showBackground = true)
+    @Composable
+    fun DetailScreenPreview() {
+        TestingTheme {
+            DetailScreen(navController = rememberNavController())
+        }
+    }
+
+@Composable
+fun MyAppNavigation() {
+    val navController = rememberNavController()
+
+    NavHost(navController = navController, startDestination ="home"){
+        composable(route = "home"){
+            HomeScreen(navController)
+        }
+        composable(route = "detail"){
+            DetailScreen(navController)
+        }
+
     }
 }
 
-}
+    @Composable
+    fun HomeScreen(navController: NavController){
+        val snackbarHostState = remember { SnackbarHostState() }
+        val scope = rememberCoroutineScope()
+
+        Scaffold (
+            snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+        ) {
+            innerPadding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Greeting(name = "APP")
+
+                AppButton(
+                    buttonText = "Iniciar sesion",
+                    onClickAction = {
+                        navController.navigate("detail")
+
+                    }
+                )
+
+
+            }
+        }
+    }
+
+    @Composable
+    fun DetailScreen(navController: NavController){
+        Scaffold { innerPadding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+
+            )
+
+            {
+                Text("Esta es la segunda pantalla",
+                    color = MaterialTheme.colorScheme.onBackground)
+
+
+
+                Button(onClick = { navController.popBackStack() }) {
+                    Text("Volver atrás")
+                }
+
+            }
+
+
+            }
+
+        }
+    }
