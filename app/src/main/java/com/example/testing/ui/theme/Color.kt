@@ -14,7 +14,7 @@ val Pink40 = Color(0xFF7D5260)
 
 
 //Colores de elementos
-val textoGeneral = Color(0xFFDDECDD)
-val fondoPers = Color(0xFF16161D)
+val textoGeneral = Color(0xFF1E90FF)
+val fondoPers = Color(0xFF000000)
 
-val BotonesGen = Color(0xFFAD8F5E)
+val BotonesGen = Color(0xFF39FF14)
