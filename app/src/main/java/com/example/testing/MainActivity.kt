@@ -66,8 +66,6 @@ import com.example.testing.ui.theme.BotonesGen
 import com.example.testing.ui.theme.TestingTheme
 import com.example.testing.ui.theme.textoGeneral
 import kotlinx.coroutines.launch
-
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,14 +73,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             val snackbarHostState = remember { SnackbarHostState() }
             val scope = rememberCoroutineScope()
-
             TestingTheme {
                 MyAppNavigation()
         }
-
     }
 }
-
 @Composable//texto de bienvenida
 fun TextoBienvenida(name: String, modifier: Modifier = Modifier) {
         Text(
@@ -91,8 +86,6 @@ fun TextoBienvenida(name: String, modifier: Modifier = Modifier) {
             modifier = modifier.padding(10.dp)
         )
     }
-
-
 @Composable//botones
 fun AppButton(buttonText: String, modifier: Modifier = Modifier, onClickAction: () -> Unit) {
     Button(
@@ -108,25 +101,9 @@ fun AppButton(buttonText: String, modifier: Modifier = Modifier, onClickAction: 
         )
     }
 }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun HomeScreenPreview() {
-        TestingTheme {
-            HomeScreen(navController = rememberNavController())
-        }
-    }
-    @Preview(showBackground = true)
-    @Composable
-    fun SecondScreenPreview() {
-        TestingTheme {
-            SecondScreen(navController = rememberNavController())
-        }
-    }
 @Composable//Pantallas
 fun MyAppNavigation() {
     val navController = rememberNavController()
-
     NavHost(navController = navController, startDestination ="home"){
         composable(route = "home"){
             HomeScreen(navController)
@@ -140,15 +117,12 @@ fun MyAppNavigation() {
         composable(route = "fourth") {
             FourthScreen(navController)
         }
-
     }
 }
-
     @Composable
     fun HomeScreen(navController: NavController){
         val snackbarHostState = remember { SnackbarHostState() }
         val scope = rememberCoroutineScope()
-
         Scaffold (
             snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
         ) {
@@ -163,12 +137,10 @@ fun MyAppNavigation() {
                 TextoBienvenida(
                     name = "Level-UP",
                 )
-
                 AppButton(
                     buttonText = "Iniciar sesion",
                     onClickAction = {
                         navController.navigate("second")
-
                     }
                 )
                 AppButton(
@@ -177,11 +149,9 @@ fun MyAppNavigation() {
                         navController.navigate("third")
                     }
                 )
-
             }
         }
     }
-
     @Composable//Inicio de sesion
     fun SecondScreen(navController: NavController){
         var email by remember { mutableStateOf("") }
@@ -430,6 +400,6 @@ fun MyAppNavigation() {
     }
     @Composable//Ventana Principal
     fun FourthScreen(navController: NavController){
-
+        //tengo que añadir cosas de la cuarta pantalla
     }
 }
