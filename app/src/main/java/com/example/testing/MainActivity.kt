@@ -71,6 +71,7 @@ import com.example.testing.ui.theme.TestingTheme
 import com.example.testing.ui.theme.textoGeneral
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import kotlinx.coroutines.launch
+//Profe le dejo este mensaje para el futuro, se me olvido que necesitaba mandarle un trello (solo tomar en cuenta en caso de que realmente no lo haya mandado)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
