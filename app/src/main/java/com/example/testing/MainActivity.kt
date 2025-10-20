@@ -1,5 +1,8 @@
 package com.example.testing
 
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import com.google.accompanist.navigation.animation.AnimatedNavHost
 import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.DatePicker
@@ -14,6 +17,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.launch
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -65,6 +69,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.testing.ui.theme.BotonesGen
 import com.example.testing.ui.theme.TestingTheme
 import com.example.testing.ui.theme.textoGeneral
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,10 +106,27 @@ fun AppButton(buttonText: String, modifier: Modifier = Modifier, onClickAction: 
         )
     }
 }
+@OptIn(ExperimentalAnimationApi::class)
 @Composable//Pantallas
 fun MyAppNavigation() {
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination ="home"){
+    val navController = rememberAnimatedNavController()
+    AnimatedNavHost(
+        navController = navController,
+        startDestination ="home",
+        enterTransition = {
+            slideInHorizontally(initialOffsetX = { -it })
+                          },
+        exitTransition = {
+            slideOutHorizontally(targetOffsetX = { -it / 3 })
+                         },
+        popEnterTransition = {
+            slideInHorizontally(initialOffsetX = { -it / 3 })
+                             },
+        popExitTransition = {
+            slideOutHorizontally(targetOffsetX = { it })
+        }
+
+    ) {
         composable(route = "home"){
             HomeScreen(navController)
         }

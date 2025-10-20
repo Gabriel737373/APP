@@ -43,6 +43,7 @@ android {
 
 dependencies {
 
+    implementation("com.google.accompanist:accompanist-navigation-animation:0.34.0")
     implementation("androidx.compose.material:material-icons-extended-android:1.6.8")
     implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation("androidx.navigation:navigation-compose:2.8.0-beta01")
